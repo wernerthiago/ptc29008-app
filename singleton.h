@@ -8,13 +8,11 @@
 #ifndef SINGLETON_H_
 #define SINGLETON_H_
 
-enum Event {
-    login_req, login_resp, logout_req, logout_resp, join_req, join_resp, leave_req, leave_resp, list_req, list_resp, setmode_req, setmode_resp, data, ack, timeout, subscribe, unsubscribe, notify
-};
+#include "mensagem.h"
 
 class State {
 public:
-    virtual State * handle(Event & e) = 0;
+    virtual State * handle(Mensagem msg) = 0;
     virtual ~State();
 };
 
@@ -29,8 +27,8 @@ public:
     virtual ~Context() {
     }
 
-    void Request(Event & e) {
-        State * novo = estado->handle(e);
+    void Request(Mensagem msg) {
+        State * novo = estado->handle(msg);
 
         if (novo) {
             estado = novo;

@@ -10,6 +10,7 @@
 
 #include "vector"
 #include "string"
+#include "singleton.h"
 
 using namespace std;
 
@@ -43,11 +44,13 @@ class ProtoClienteAPI {
   string jogador; // o identificador do jogador usado pelo protocolo
   NotifyCallback * notify_cb; // o callback para receber notificações ... inicialmente NULL
  public:
-  ProtoAPI(const string & IP, int port);
-  ~ProtoAPI();
+  ProtoClienteAPI(const string & IP, int port);
+  ~ProtoClienteAPI();
 
   // Define o callback para receber notificações
-  void set_notify(NotifyCallback & cb) { notify_cb = &cb;}
+  void set_notify(NotifyCallback & cb){
+	  notify_cb = &cb;
+  }
 
   // As operações do protocolo a seguir disparam exceções quando falham
 
@@ -88,11 +91,14 @@ class ProtoClienteAPI {
   void poll_notify(const string & assunto, vector<Par> & data);
 
  private:
+  State1 * s = State1::get_instance();
+  Context m = s;
+  void handle(Mensagem msg);
   // o tratador de evento da máquina de estados do protocolo
   // as operações solicitadas pela aplicação por meio dos métodos desta classe
   // são tratadas como eventos para a máquina de estados
   // Os argumentos do tratador de evento dependem da implementação de cada um ...
-  handle(...);
+  //handle(...);
 };
 
 

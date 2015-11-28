@@ -9,37 +9,14 @@
 
 int main() {
     State1 * s = State1::get_instance();
-    Context m(s);
-    Event e;
+    Context m = s;
+    Mensagem msg("tst",login_req);
 
-    e = login_req;
-    m.Request(e);
+    m.Request(msg);
 
-    e = login_resp;
-    m.Request(e);
-
-    e = list_req;
-    m.Request(e);
-
-    e = list_resp;
-    m.Request(e);
-
-    e = join_req;
-    m.Request(e);
-
-    e = join_resp;
-    m.Request(e);
-
-    e = setmode_req;
-    m.Request(e);
-
-    e = setmode_resp;
-    m.Request(e);
-
-    e = logout_req;
-    m.Request(e);
-
-    e = logout_resp;
-    m.Request(e);
+    msg.set_event(login_resp);
+    m.Request(msg);
+    msg.set_event(list_req);
+    m.Request(msg);
 }
 

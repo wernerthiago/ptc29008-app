@@ -10,16 +10,28 @@
 
 #include <map>
 #include <vector>
-#include <string.h>
+#include <string>
 
 using namespace std;
+
+// um par atributo, valor, usado para as trocas de dados entre entidades do protocolo
+struct Par {
+  string atributo;
+  string valor;
+
+  Par(const string & attr, const string & data) : atributo(attr), valor(data) {}
+};
 
 // Classe abstrata que serve de base para a implementação de um jogo ...
 // Ela serve para implementar as operações do jogo do ponto de vista do protocolo
 class Jogo {
+private:
+    string nome;
  public:
-  Jogo();
-  virtual ~Jogo();
+  Jogo(const string & name) : nome(name){}
+  virtual ~Jogo() {}
+
+  string get_nome() const { return nome;}
 
   // verifica as credenciais do jogador. Retorna verdadeiro se login autorizado.
   virtual bool login(const string & nome, const string& senha) = 0;
@@ -74,5 +86,6 @@ class ProtoServidorAPI {
   void publish(const string & assunto, vector<Par> & data);
 
 };
+
 
 #endif /* SERVIDOR_H_ */
