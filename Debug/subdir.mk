@@ -5,16 +5,19 @@
 # Add inputs and outputs from these tool invocations to the build variables 
 CPP_SRCS += \
 ../Cliente.cpp \
+../Evento.cpp \
 ../main.cpp \
 ../singleton.cpp 
 
 OBJS += \
 ./Cliente.o \
+./Evento.o \
 ./main.o \
 ./singleton.o 
 
 CPP_DEPS += \
 ./Cliente.d \
+./Evento.d \
 ./main.d \
 ./singleton.d 
 

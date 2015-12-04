@@ -8,7 +8,7 @@
 #ifndef SINGLETON_H_
 #define SINGLETON_H_
 
-#include "mensagem.h"
+#include "Evento.h"
 
 class State {
 public:

@@ -11,6 +11,7 @@
 #include "vector"
 #include "string"
 #include "singleton.h"
+#include "Evento.h"
 
 using namespace std;
 
@@ -90,10 +91,12 @@ class ProtoClienteAPI {
   // se o callback para receber notificações não foi definido.
   void poll_notify(const string & assunto, vector<Par> & data);
 
+  void wait();
+
  private:
   State1 * s = State1::get_instance();
   Context m = s;
-  void handle(Mensagem msg);
+  void handle(Evento ev);
   // o tratador de evento da máquina de estados do protocolo
   // as operações solicitadas pela aplicação por meio dos métodos desta classe
   // são tratadas como eventos para a máquina de estados

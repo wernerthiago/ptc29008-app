@@ -7,51 +7,44 @@
 
 #include "Cliente.h"
 #include "singleton.h"
+#include "Evento.h"
 #include <map>
 #include <vector>
 #include <string>
+#define TIME 100
 
 using namespace std;
 
 void ProtoClienteAPI::login(const string & nome, const string & senha){
 	this->jogador = nome;
-	char * data = nome + '#' + senha;
-	Mensagem msg(data,login_req);
-	this->handle(msg);
-    cout << "login: nome =" << nome << ", senha =" << senha << endl;
+	EventoLoginReq ev(nome,senha);
+	this->handle(ev);
 }
 
 void ProtoClienteAPI::logout(){
-	Mensagem msg(logout_req);
-	this->handle(msg);
-	cout << "login: nome =" << this->jogador << endl;
+	EventoLogoutReq ev(this->jogador);
+	this->handle(ev);
 }
 
 void ProtoClienteAPI::join(const string & partida, const string & extra){
-	Mensagem msg(join_req);
-	this->handle(msg);
-    cout << "join: nome =" << this->jogador << ", partida = " << partida;
-    cout << ", extra =" << extra << endl;
+	EventoJoinReq ev(partida,extra);
+	this->handle(ev);
 }
 
 void ProtoClienteAPI::lista_info(vector<Par> & lista){
-
+	EventoListReq ev(lista);
+	this->handle(ev);
 }
 
 void ProtoClienteAPI::leave(){
-	Mensagem msg(leave_req);
-	this->handle(msg);
-	cout << "leave: nome=" << this->jogador << endl;
+	EventoLeaveReq ev();
+	this->handle(ev);
 }
 
-void ProtoClienteAPI::handle(Mensagem msg){
-	this->m.Request(msg);
-	char * aux = this->notify_cb;
-	while(1){
-		if(aux != this->notify_cb){
-			msg = this->notify_cb;
-			break;
-		}
-	}
-	this->m.Request(msg);
+void ProtoClienteAPI::wait(){
+
+}
+
+void ProtoClienteAPI::handle(Evento ev){
+	this->m.Request(ev);
 }
