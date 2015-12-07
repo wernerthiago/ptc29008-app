@@ -42,9 +42,10 @@ void ProtoClienteAPI::leave(){
 }
 
 void ProtoClienteAPI::wait(){
-
+	//Método criado para esperar a resposta do servidor
+	//Idealmente é necessário que exista um timeout.
 }
 
 void ProtoClienteAPI::handle(Evento ev){
-	this->m.Request(ev);
+	this->Request(ev);
 }

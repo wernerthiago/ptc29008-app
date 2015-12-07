@@ -12,29 +12,29 @@
 
 class State {
 public:
-    virtual State * handle(Mensagem msg) = 0;
+    virtual State * handle(Evento ev) = 0;
     virtual ~State();
 };
 
-class Context {
-protected:
-    State * estado;
-public:
-
-    Context(State * inicio) : estado(inicio) {
-    }
-
-    virtual ~Context() {
-    }
-
-    void Request(Mensagem msg) {
-        State * novo = estado->handle(msg);
-
-        if (novo) {
-            estado = novo;
-        } else throw exception();
-    }
-};
+//class Context {
+//protected:
+//    State * estado;
+//public:
+//
+//    Context(State * inicio) : estado(inicio) {
+//    }
+//
+//    virtual ~Context() {
+//    }
+//
+//    void Request(Evento ev) {
+//        State * novo = estado->handle(ev);
+//
+//        if (novo) {
+//            estado = novo;
+//        } else throw exception();
+//    }
+//};
 
 
 class State1 : public State {
@@ -46,7 +46,7 @@ public:
         return single;
     }
 
-    virtual State * handle(Event & e);
+    virtual State * handle(Evento & e);
 private:
     // construtor, construtor de cópia e operador de atribuição ficam inacessíveis
     // fora da classe
@@ -76,7 +76,7 @@ public:
         return single;
     }
 
-    virtual State * handle(Event & e);
+    virtual State * handle(Evento & e);
 
 private:
     // construtor, construtor de cópia e operador de atribuição ficam inacessíveis
@@ -108,7 +108,7 @@ public:
         return single;
     }
 
-    virtual State * handle(Event & e);
+    virtual State * handle(Evento & e);
 
 private:
     // construtor, construtor de cópia e operador de atribuição ficam inacessíveis
@@ -140,7 +140,7 @@ public:
         return single;
     }
 
-    virtual State * handle(Event & e);
+    virtual State * handle(Evento & e);
 
 private:
     // construtor, construtor de cópia e operador de atribuição ficam inacessíveis
@@ -172,7 +172,7 @@ public:
         return single;
     }
 
-    virtual State * handle(Event & e);
+    virtual State * handle(Evento & e);
 
 private:
     // construtor, construtor de cópia e operador de atribuição ficam inacessíveis
@@ -204,7 +204,7 @@ public:
         return single;
     }
 
-    virtual State * handle(Event & e);
+    virtual State * handle(Evento & e);
 
 private:
     // construtor, construtor de cópia e operador de atribuição ficam inacessíveis
@@ -236,7 +236,7 @@ public:
         return single;
     }
 
-    virtual State * handle(Event & e);
+    virtual State * handle(Evento & e);
 
 private:
     // construtor, construtor de cópia e operador de atribuição ficam inacessíveis
@@ -268,7 +268,7 @@ public:
         return single;
     }
 
-    virtual State * handle(Event & e);
+    virtual State * handle(Evento & e);
 
 private:
     // construtor, construtor de cópia e operador de atribuição ficam inacessíveis
@@ -300,7 +300,7 @@ public:
         return single;
     }
 
-    virtual State * handle(Event & e);
+    virtual State * handle(Evento & e);
 
 private:
     // construtor, construtor de cópia e operador de atribuição ficam inacessíveis
@@ -332,7 +332,7 @@ public:
         return single;
     }
 
-    virtual State * handle(Event & e);
+    virtual State * handle(Evento & e);
 
 private:
     // construtor, construtor de cópia e operador de atribuição ficam inacessíveis

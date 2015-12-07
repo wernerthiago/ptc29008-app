@@ -16,7 +16,7 @@ State8 * State8::single = NULL;
 State9 * State9::single = NULL;
 State10 * State10::single = NULL;
 
-State * State1::handle(Event & e) {
+State * State1::handle(Evento & e) {
     cout << "1 -" << e << "-> ";
     State * s;
     switch (e) {
@@ -41,7 +41,7 @@ State * State1::handle(Event & e) {
     return s;
 }
 
-State * State2::handle(Event & e) {
+State * State2::handle(Evento & e) {
     cout << "2 -" << e << "-> ";
     State * s;
     switch (e) {
@@ -58,7 +58,7 @@ State * State2::handle(Event & e) {
     return s;
 }
 
-State * State3::handle(Event& e) {
+State * State3::handle(Evento& e) {
     cout << "3 -" << e << "-> ";
     State * s;
     switch (e) {
@@ -98,7 +98,7 @@ State * State3::handle(Event& e) {
     return s;
 }
 
-State * State4::handle(Event& e) { //LOGOUT_WAIT1;
+State * State4::handle(Evento& e) { //LOGOUT_WAIT1;
     cout << "4 -" << e << "-> ";
     State * s;
     switch (e) {
@@ -115,7 +115,7 @@ State * State4::handle(Event& e) { //LOGOUT_WAIT1;
     return s;
 }
 
-State * State5::handle(Event& e) { //LIST_WAIT
+State * State5::handle(Evento& e) { //LIST_WAIT
     cout << "5 -" << e << "-> ";
     State * s;
     switch (e) {
@@ -132,7 +132,7 @@ State * State5::handle(Event& e) { //LIST_WAIT
     return s;
 }
 
-State * State6::handle(Event& e) { //JOIN_WAIT
+State * State6::handle(Evento& e) { //JOIN_WAIT
     cout << "6 -" << e << "-> ";
     State * s;
     switch (e) {
@@ -149,7 +149,7 @@ State * State6::handle(Event& e) { //JOIN_WAIT
     return s;
 }
 
-State * State7::handle(Event& e) { //ESTADO DE JOGO
+State * State7::handle(Evento& e) { //ESTADO DE JOGO
     cout << "7 -" << e << "-> ";
     State * s;
     switch (e) {
@@ -186,7 +186,7 @@ State * State7::handle(Event& e) { //ESTADO DE JOGO
     return s;
 }
 
-State * State8::handle(Event& e) { //LEAVE_WAIT
+State * State8::handle(Evento& e) { //LEAVE_WAIT
     cout << "8 -" << e << "-> ";
     State * s;
     switch (e) {
@@ -202,7 +202,7 @@ State * State8::handle(Event& e) { //LEAVE_WAIT
     return s;
 }
 
-State * State9::handle(Event& e) { //SETMODE_WAIT
+State * State9::handle(Evento& e) { //SETMODE_WAIT
     cout << "9 -" << e << "-> ";
     State * s;
     switch (e) {
@@ -218,7 +218,7 @@ State * State9::handle(Event& e) { //SETMODE_WAIT
     return s;
 }
 
-State * State10::handle(Event& e) { //LOGOUT_WAIT;
+State * State10::handle(Evento& e) { //LOGOUT_WAIT;
     State * s;
     cout << "10 -" << e << "-> ";
     switch (e) {
