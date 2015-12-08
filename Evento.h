@@ -6,7 +6,7 @@
  */
 
 #ifndef EVENTO_H
-#define	EVENTO_H
+#define	 EVENTO_H
 
 #include "singleton.h"
 #include <string>
@@ -95,7 +95,7 @@ protected:
 public:
 	EventoListReq(vector<Par> & lista){
 		this->lista = lista;
-		this->tipo = list_req;
+		this->tipo = list_req;State * handle(Evento & e)
 	}
 	virtual ~EventoListReq();
 	vector<Par> & get_lista(){

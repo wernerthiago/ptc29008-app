@@ -12,7 +12,7 @@
 
 class State {
 public:
-    virtual State * handle(Evento ev) = 0;
+    virtual State * handle(Evento & ev) = 0;
     virtual ~State();
 };
 
