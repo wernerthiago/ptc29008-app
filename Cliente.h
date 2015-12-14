@@ -8,33 +8,19 @@
 #ifndef CLIENTE_H_
 #define CLIENTE_H_
 
-#include "vector"
-#include "string"
+#include <vector>
+#include <string>
+#include "types.h"
 #include "singleton.h"
-#include "Evento.h"
 
 using namespace std;
-
-// códigos de retorno para operações do protocolo
-enum Codigos_Retorno {
-	OK,
-	ERRO,
-	RECUSADO,
-	TIMEOUT
-};
-
-// um par atributo, valor, usado para as trocas de dados entre entidades do protocolo
-struct Par {
-	string atributo;
-	string valor;
-};
 
 // Uma classe abstrata para implementar um objeto-função. Isso pode ser usado para
 // implementar o callback para recebimento de notificações (notify)
 // Deve-se especializá-la, sobrescrevendo o método "operator()"
 class NotifyCallback {
 public:
-	void operator()(const string & assunto, const vector<Par> & data) = 0;
+	virtual void operator()(const string & assunto, const vector<Par> & data) = 0;
 };
 
 // A interface de acesso ao serviço é implementada na classe ProtoClienteAPI
@@ -103,7 +89,7 @@ public:
 	void wait();
 
 private:
-	void handle(Evento ev);
+	void handle(Evento & ev);
 	// o tratador de evento da máquina de estados do protocolo
 	// as operações solicitadas pela aplicação por meio dos métodos desta classe
 	// são tratadas como eventos para a máquina de estados

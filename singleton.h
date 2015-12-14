@@ -9,6 +9,7 @@
 #define SINGLETON_H_
 
 #include "Evento.h"
+#include "types.h"
 
 class State {
 public:

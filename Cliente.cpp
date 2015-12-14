@@ -6,8 +6,6 @@
  */
 
 #include "Cliente.h"
-#include "singleton.h"
-#include "Evento.h"
 #include <map>
 #include <vector>
 #include <string>
@@ -37,7 +35,7 @@ void ProtoClienteAPI::lista_info(vector<Par> & lista){
 }
 
 void ProtoClienteAPI::leave(){
-	EventoLeaveReq ev();
+	EventoLeaveReq ev;
 	this->handle(ev);
 }
 
@@ -46,6 +44,6 @@ void ProtoClienteAPI::wait(){
 	//Idealmente é necessário que exista um timeout.
 }
 
-void ProtoClienteAPI::handle(Evento ev){
+void ProtoClienteAPI::handle(Evento & ev){
 	this->Request(ev);
 }

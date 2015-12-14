@@ -8,10 +8,10 @@
 #ifndef EVENTO_H
 #define	 EVENTO_H
 
-#include "singleton.h"
+//#include "singleton.h"
 #include <string>
 #include <vector>
-#include "Cliente.h"
+//#include "Cliente.h"
 
 using namespace std;
 
@@ -93,9 +93,8 @@ class EventoListReq : public Evento {
 protected:
 	vector<Par> & lista;
 public:
-	EventoListReq(vector<Par> & lista){
-		this->lista = lista;
-		this->tipo = list_req;State * handle(Evento & e)
+	EventoListReq(vector<Par> & umaLista) : lista(umaLista) {
+		this->tipo = list_req;
 	}
 	virtual ~EventoListReq();
 	vector<Par> & get_lista(){
