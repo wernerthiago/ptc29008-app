@@ -11,6 +11,7 @@
 //#include "singleton.h"
 #include <string>
 #include <vector>
+#include "types.h"
 //#include "Cliente.h"
 
 using namespace std;

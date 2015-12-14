@@ -17,27 +17,6 @@ public:
     virtual ~State();
 };
 
-//class Context {
-//protected:
-//    State * estado;
-//public:
-//
-//    Context(State * inicio) : estado(inicio) {
-//    }
-//
-//    virtual ~Context() {
-//    }
-//
-//    void Request(Evento ev) {
-//        State * novo = estado->handle(ev);
-//
-//        if (novo) {
-//            estado = novo;
-//        } else throw exception();
-//    }
-//};
-
-
 class State1 : public State {
 public:
     // a instância de State0 somente pode ser obtida por meio de get_instance
