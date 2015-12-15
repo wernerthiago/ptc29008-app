@@ -1,1 +1,1 @@
-Evento.o: ../Evento.cpp
+Evento.d Evento.o: ../Evento.cpp

@@ -111,7 +111,13 @@ public:
 	virtual ~EventoLeaveReq();
 };
 
-
+class EventoTimeout : public Evento{
+public:
+	EventoTimeout(){
+		this->tipo = timeout;
+	}
+	virtual ~EventoTimeout();
+};
 
 #endif	/* EVENTO_H */
 

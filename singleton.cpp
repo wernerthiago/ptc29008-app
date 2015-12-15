@@ -1,7 +1,8 @@
-#include "iostream"
-#include "memory"
-#include "vector"
+#include <iostream>
+#include <memory>
+#include <vector>
 #include "singleton.h"
+#include "udp_client_server.h"
 
 using namespace std;
 
@@ -22,12 +23,11 @@ State * State1::handle(Evento & e) {
     switch (e) {
         case login_req:
             s = State2::get_instance();
+//            udp_client_server::udp_client client("127.0.0.1","1500");
+//            string mensagem = "login_req";
+//            client.send(mensagem,mensagem.size());
             cout << "2" << endl;
             break;
-//        case login_resp:
-//            s = State3::get_instance();
-//            cout << "3" << endl;
-//            break;
         case timeout:
             e = login_req;
             s = State2::get_instance();
@@ -66,26 +66,14 @@ State * State3::handle(Evento& e) {
             s = State4::get_instance();
             cout << "4" << endl;
             break;
-//        case logout_resp:
-//            s = State1::get_instance();
-//            cout << "1" << endl;
-//            break;
         case list_req:
             s = State5::get_instance();
             cout << "5" << endl;
             break;
-//        case list_resp:
-//            s = State3::get_instance();
-//            cout << "3" << endl;
-//            break;
         case join_req:
             s = State6::get_instance();
             cout << "6" << endl;
             break;
-//        case join_resp:
-//            s = State7::get_instance();
-//            cout << "7" << endl;
-//            break;
         case timeout:
             s = State3::get_instance();
             cout << "3" << endl;
@@ -157,26 +145,14 @@ State * State7::handle(Evento& e) { //ESTADO DE JOGO
             s = State10::get_instance();
             cout << "10" << endl;
             break;
-//        case logout_resp:
-//            s = State1::get_instance();
-//            cout << "1" << endl;
-//            break;
         case leave_req:
             s = State8::get_instance();
             cout << "8" << endl;
             break;
-//        case leave_resp:
-//            s = State3::get_instance();
-//            cout << "3" << endl;
-//            break;
         case setmode_req:
             s = State9::get_instance();
             cout << "9" << endl;
             break;
-//        case setmode_resp:
-//            s = State7::get_instance();
-//            cout << "7" << endl;
-//            break;
         case timeout:
             s = State7::get_instance();
             cout << "7" << endl;

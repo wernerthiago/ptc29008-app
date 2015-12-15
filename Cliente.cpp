@@ -6,9 +6,15 @@
  */
 
 #include "Cliente.h"
+
 #include <map>
 #include <vector>
 #include <string>
+#include <sys/select.h>
+#include <sys/time.h>
+#include <sys/types.h>
+#include <unistd.h>
+
 #define TIME 100
 
 using namespace std;
@@ -42,6 +48,25 @@ void ProtoClienteAPI::leave(){
 void ProtoClienteAPI::wait(){
 	//Método criado para esperar a resposta do servidor
 	//Idealmente é necessário que exista um timeout.
+	udp_client_server::udp_client client(this->IP,this->port);
+	udp_client_server::udp_server server(this->IP,this->port);
+	int fd = client.get_socket();
+
+	struct timeval timeout; // para especificar o timeout
+	timeout.tv_sec = 2; //timeout de 2 segundos
+	timeout.tv_usec = 0;
+
+	fd_set espera;
+	FD_ZERO(&espera);
+	FD_SET(fd, &espera);
+
+	if (select(1, &espera, NULL, NULL, &timeout) == 0) { // timeout !!
+		EventoTimeout ev;
+		this->handle(ev);
+	} else {
+		//EventoResp ev_resp();
+		// = server.recv()
+	}
 }
 
 void ProtoClienteAPI::handle(Evento & ev){
