@@ -32,6 +32,7 @@ private:
 	int port; // o port da outra entidade de protocolo
 	string jogador; // o identificador do jogador usado pelo protocolo
 	NotifyCallback * notify_cb; // o callback para receber notificações ... inicialmente NULL
+
 public:
 	ProtoClienteAPI(const string & IP, int port, State * inicio) : IP(IP), port(port), estado(inicio) {};
 	~ProtoClienteAPI();

@@ -19,6 +19,7 @@
 
 using namespace std;
 
+
 void ProtoClienteAPI::login(const string & nome, const string & senha){
 	this->jogador = nome;
 	EventoLoginReq ev(nome,senha);
