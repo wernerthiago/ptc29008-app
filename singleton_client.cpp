@@ -1,8 +1,9 @@
+#include "singleton_client.h"
+
 #include <iostream>
 #include <memory>
 #include <vector>
-#include "singleton.h"
-#include "udp_client_server.h"
+#include "Cliente.h"
 
 using namespace std;
 
@@ -18,31 +19,22 @@ State9 * State9::single = NULL;
 State10 * State10::single = NULL;
 
 State * State1::handle(Evento & e) {
-    cout << "1 -" << e << "-> ";
     State * s;
     switch (e) {
         case login_req:
             s = State2::get_instance();
-//            udp_client_server::udp_client client("127.0.0.1","1500");
-//            string mensagem = "login_req";
-//            client.send(mensagem,mensagem.size());
-            cout << "2" << endl;
-            break;
-        case timeout:
-            e = login_req;
-            s = State2::get_instance();
-            cout << "2" << endl;
+            //montando a mensagem ASN1
+
             break;
         default:
             s = State1::get_instance();
-            cout << "1" << endl;
             break;
     }
     return s;
 }
 
 State * State2::handle(Evento & e) {
-    cout << "2 -" << e << "-> ";
+//    cout << "2 -" << e << "-> ";
     State * s;
     switch (e) {
         case login_resp:
@@ -59,24 +51,24 @@ State * State2::handle(Evento & e) {
 }
 
 State * State3::handle(Evento& e) {
-    cout << "3 -" << e << "-> ";
+//    cout << "3 -" << e << "-> ";
     State * s;
     switch (e) {
         case logout_req:
             s = State4::get_instance();
-            cout << "4" << endl;
+//            cout << "4" << endl;
             break;
         case list_req:
             s = State5::get_instance();
-            cout << "5" << endl;
+//            cout << "5" << endl;
             break;
         case join_req:
             s = State6::get_instance();
-            cout << "6" << endl;
+//            cout << "6" << endl;
             break;
         case timeout:
             s = State3::get_instance();
-            cout << "3" << endl;
+//            cout << "3" << endl;
             //VER LÓGICA DO TIMEOUT (SUGESTÃO: FAZER VÁRIOS ESTADOS DE TIMEOUT)
             break;
         default:
@@ -87,17 +79,17 @@ State * State3::handle(Evento& e) {
 }
 
 State * State4::handle(Evento& e) { //LOGOUT_WAIT1;
-    cout << "4 -" << e << "-> ";
+//    cout << "4 -" << e << "-> ";
     State * s;
     switch (e) {
         case logout_resp:
             s = State1::get_instance();
-            cout << "1" << endl;
+//            cout << "1" << endl;
             break;
         default:
             e = timeout;
             s = State3::get_instance();
-            cout << "3" << endl;
+//            cout << "3" << endl;
             break;
     }
     return s;

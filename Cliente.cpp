@@ -6,7 +6,6 @@
  */
 
 #include "Cliente.h"
-
 #include <map>
 #include <vector>
 #include <string>
@@ -18,12 +17,14 @@
 #define TIME 100
 
 using namespace std;
+using boost::asio;
 
 
 void ProtoClienteAPI::login(const string & nome, const string & senha){
 	this->jogador = nome;
 	EventoLoginReq ev(nome,senha);
 	this->handle(ev);
+	this->wait();
 }
 
 void ProtoClienteAPI::logout(){
@@ -47,11 +48,7 @@ void ProtoClienteAPI::leave(){
 }
 
 void ProtoClienteAPI::wait(){
-	//Método criado para esperar a resposta do servidor
-	//Idealmente é necessário que exista um timeout.
-	udp_client_server::udp_client client(this->IP,this->port);
-	udp_client_server::udp_server server(this->IP,this->port);
-	int fd = client.get_socket();
+	int fd = this->client.get_socket();
 
 	struct timeval timeout; // para especificar o timeout
 	timeout.tv_sec = 2; //timeout de 2 segundos
@@ -61,15 +58,17 @@ void ProtoClienteAPI::wait(){
 	FD_ZERO(&espera);
 	FD_SET(fd, &espera);
 
-	if (select(1, &espera, NULL, NULL, &timeout) == 0) { // timeout !!
+	if (select(fd+1, &espera, NULL, NULL, &timeout) == 0) { // timeout !!
 		EventoTimeout ev;
 		this->handle(ev);
 	} else {
-		//EventoResp ev_resp();
-		// = server.recv()
+		std::string recieve = client.recv();
 	}
 }
 
 void ProtoClienteAPI::handle(Evento & ev){
-	this->Request(ev);
+    State * novo = estado->handle(ev);
+    if (novo) {
+        estado = novo;
+    } else throw exception();
 }

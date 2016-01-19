@@ -1,12 +1,12 @@
 /*
- * singleton.h
+ * singleton_server.h
  *
- *  Created on: Nov 24, 2015
+ *  Created on: Dec 22, 2015
  *      Author: werner
  */
 
-#ifndef SINGLETON_H_
-#define SINGLETON_H_
+#ifndef SINGLETON_SERVER_H_
+#define SINGLETON_SERVER_H_
 
 #include "Evento.h"
 #include "types.h"
@@ -16,6 +16,37 @@ public:
     virtual State * handle(Evento & ev) = 0;
     virtual ~State();
 };
+
+class StateIdle : public State {
+public:
+    // a instância de State0 somente pode ser obtida por meio de get_instance
+
+    static StateIdle * get_instance() {
+        if (not single) single = new StateIdle();
+        return single;
+    }
+
+    virtual State * handle(Evento & e);
+private:
+    // construtor, construtor de cópia e operador de atribuição ficam inacessíveis
+    // fora da classe
+
+    StateIdle() {
+    }
+
+    State1(const StateIdle & outro) {
+    }
+
+    StateIdle& operator=(const State1 & outro) {
+        return *this;
+    }
+
+    // ponteiro para a única instância da classe
+public:
+    static StateIdle * single;
+
+};
+
 
 class State1 : public State {
 public:
@@ -77,6 +108,38 @@ private:
     // ponteiro para a única instância da classe
 public:
     static State2 * single;
+};
+
+class State21 : public State {
+public:
+    // a instância de State0 somente pode ser obtida por meio de get_instance
+
+    static State21 * get_instance() {
+        if (not single) single = new State21();
+        return single;
+    }
+
+    virtual State * handle(Evento & e);
+
+private:
+    // construtor, construtor de cópia e operador de atribuição ficam inacessíveis
+    // fora da classe
+
+    State21() {
+
+    }
+
+    State2(const State21 & outro) {
+
+    }
+
+    State21& operator=(const State21 & outro) {
+        return *this;
+    }
+
+    // ponteiro para a única instância da classe
+public:
+    static State21 * single;
 };
 
 class State3 : public State {
@@ -141,6 +204,38 @@ private:
     // ponteiro para a única instância da classe
 public:
     static State4 * single;
+};
+
+class State41 : public State {
+public:
+    // a instância de State0 somente pode ser obtida por meio de get_instance
+
+    static State41 * get_instance() {
+        if (not single) single = new State41();
+        return single;
+    }
+
+    virtual State * handle(Evento & e);
+
+private:
+    // construtor, construtor de cópia e operador de atribuição ficam inacessíveis
+    // fora da classe
+
+    State41() {
+
+    }
+
+    State41(const State41 & outro) {
+
+    }
+
+    State41& operator=(const State41 & outro) {
+        return *this;
+    }
+
+    // ponteiro para a única instância da classe
+public:
+    static State41 * single;
 };
 
 class State5 : public State {
@@ -271,70 +366,4 @@ public:
     static State8 * single;
 };
 
-class State9 : public State {
-public:
-    // a instância de State0 somente pode ser obtida por meio de get_instance
-
-    static State9 * get_instance() {
-        if (not single) single = new State9();
-        return single;
-    }
-
-    virtual State * handle(Evento & e);
-
-private:
-    // construtor, construtor de cópia e operador de atribuição ficam inacessíveis
-    // fora da classe
-
-    State9() {
-
-    }
-
-    State9(const State9 & outro) {
-
-    }
-
-    State9& operator=(const State9 & outro) {
-        return *this;
-    }
-
-    // ponteiro para a única instância da classe
-public:
-    static State9 * single;
-};
-
-class State10 : public State {
-public:
-    // a instância de State0 somente pode ser obtida por meio de get_instance
-
-    static State10 * get_instance() {
-        if (not single) single = new State10();
-        return single;
-    }
-
-    virtual State * handle(Evento & e);
-
-private:
-    // construtor, construtor de cópia e operador de atribuição ficam inacessíveis
-    // fora da classe
-
-    State10() {
-
-    }
-
-    State10(const State10 & outro) {
-
-    }
-
-    State10& operator=(const State10 & outro) {
-        return *this;
-    }
-
-    // ponteiro para a única instância da classe
-public:
-    static State10 * single;
-};
-
-
-
-#endif /* SINGLETON_H_ */
+#endif /* SINGLETON_SERVER_H_ */

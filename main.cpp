@@ -5,7 +5,7 @@
  *      Author: werner
  */
 
-#include "singleton.h"
+#include "singleton_client.h"
 
 int main() {
 

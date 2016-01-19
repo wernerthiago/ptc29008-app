@@ -32,9 +32,12 @@ enum Tipo {
 	data,
 	ack,
 	timeout,
-	subscribe,
-	unsubscribe,
-	notify
+	subscribe_req,
+	subscribe_resp,
+	unsubscribe_req,
+	unsubscribe_resp,
+	notify_req,
+	notify_resp
 };
 
 class Evento{
