@@ -66,6 +66,10 @@ void ProtoClienteAPI::wait(){
 	}
 }
 
+int ProtoClienteAPI::Request(){
+	return this->estado->get_fd(*this);
+}
+
 void ProtoClienteAPI::handle(Evento & ev){
     State * novo = estado->handle(ev);
     if (novo) {

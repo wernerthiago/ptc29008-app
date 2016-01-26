@@ -1,9 +1,7 @@
 #include "singleton_client.h"
-
 #include <iostream>
 #include <memory>
 #include <vector>
-#include "Cliente.h"
 
 using namespace std;
 
@@ -23,7 +21,8 @@ State * State1::handle(Evento & e) {
     switch (e) {
         case login_req:
             s = State2::get_instance();
-            //montando a mensagem ASN1
+            ProtoClienteAPI p;
+            //p.send()
 
             break;
         default:

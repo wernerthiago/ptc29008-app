@@ -25,6 +25,9 @@ public:
 };
 
 // A interface de acesso ao serviço é implementada na classe ProtoClienteAPI
+
+class State;
+
 class ProtoClienteAPI {
 protected:
 	State * estado;
@@ -84,6 +87,12 @@ public:
 	void poll_notify(const string & assunto, vector<Par> & data);
 
 	void wait();
+
+	int get_descritor(){
+		return client.get_socket();
+	}
+
+	int Request();
 
 private:
 	void handle(Evento & ev);
