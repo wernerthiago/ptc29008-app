@@ -17,8 +17,6 @@
 #define TIME 100
 
 using namespace std;
-using boost::asio;
-
 
 void ProtoClienteAPI::login(const string & nome, const string & senha){
 	this->jogador = nome;
@@ -48,7 +46,7 @@ void ProtoClienteAPI::leave(){
 }
 
 void ProtoClienteAPI::wait(){
-	int fd = this->client.get_socket();
+	int fd = (int)this->client.get_socket();
 
 	struct timeval timeout; // para especificar o timeout
 	timeout.tv_sec = 2; //timeout de 2 segundos
@@ -62,7 +60,7 @@ void ProtoClienteAPI::wait(){
 		EventoTimeout ev;
 		this->handle(ev);
 	} else {
-		std::string recieve = client.recv();
+		boost::array<std::string,10> recieve = client.recv();
 	}
 }
 

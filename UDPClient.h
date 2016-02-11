@@ -36,9 +36,9 @@ public:
 		socket_.send_to(boost::asio::buffer(msg, msg.size()), endpoint_);
 	}
 
-	std::string recv(){
+	boost::array<std::string,10> recv(){
 		boost::array<std::string,10> recv_buf;
-		size_t len = socket_.receive_from(boost::asio::buffer(recv_buf), sendponit_);
+		socket_.receive_from(boost::asio::buffer(recv_buf), sendponit_);
 		return recv_buf;
 	}
 

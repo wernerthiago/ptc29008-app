@@ -39,8 +39,13 @@ private:
 	UDPClient client;
 
 public:
-	ProtoClienteAPI(const string & IP, int port, State * inicio) : IP(IP), port(port),
-	  estado(inicio), client(boost::asio::io_service io_service,IP,port) {};
+	ProtoClienteAPI(const string & IP, int port, State * inicio){
+		this->IP = IP;
+		this->port = port;
+		this->estado = inicio;
+		boost::asio::io_service io_service;
+		this->client(io_service, this->IP, this->port);
+	}
 	~ProtoClienteAPI();
 
 	// Define o callback para receber notificações
@@ -88,7 +93,7 @@ public:
 
 	void wait();
 
-	int get_descritor(){
+	udp::socket get_descritor(){
 		return client.get_socket();
 	}
 

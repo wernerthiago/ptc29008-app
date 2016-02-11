@@ -17,7 +17,7 @@ class ProtoClienteAPI;
 class State {
 public:
     virtual State * handle(Evento & ev) = 0;
-    int get_fd(ProtoClienteAPI & p){
+    udp::socket get_fd(ProtoClienteAPI & p){
     	return p.get_descritor();
     }
     virtual ~State();
