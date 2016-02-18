@@ -10,9 +10,11 @@
 
 #include <vector>
 #include <string>
-#include "singleton_client.h"
 #include "types.h"
 #include "UDPClient.h"
+#include "Evento.h"
+
+class State;
 
 using namespace std;
 
@@ -36,17 +38,18 @@ private:
 	int port; // o port da outra entidade de protocolo
 	string jogador; // o identificador do jogador usado pelo protocolo
 	NotifyCallback * notify_cb; // o callback para receber notificações ... inicialmente NULL
-	UDPClient client;
+	UDPClient * client;
+	boost::asio::io_service &io_service;
 
 public:
-	ProtoClienteAPI(const string & IP, int port, State * inicio){
+	ProtoClienteAPI(const string & IP, int port, State * inicio) {
 		this->IP = IP;
 		this->port = port;
 		this->estado = inicio;
-		boost::asio::io_service io_service;
-		this->client(io_service, this->IP, this->port);
+		client = new UDPClient(this->io_service, this->IP, this->port);
 	}
 	~ProtoClienteAPI();
+
 
 	// Define o callback para receber notificações
 	void set_notify(NotifyCallback & cb){
@@ -93,8 +96,8 @@ public:
 
 	void wait();
 
-	udp::socket get_descritor(){
-		return client.get_socket();
+	UDPClient * get_client(){
+		return this->client;
 	}
 
 	int Request();

@@ -1,4 +1,5 @@
 #include "singleton_client.h"
+#include "Cliente.h"
 #include <iostream>
 #include <memory>
 #include <vector>

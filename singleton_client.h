@@ -12,13 +12,11 @@
 #include "types.h"
 #include "Cliente.h"
 
-class ProtoClienteAPI;
-
 class State {
 public:
     virtual State * handle(Evento & ev) = 0;
-    udp::socket get_fd(ProtoClienteAPI & p){
-    	return p.get_descritor();
+    int get_fd(ProtoClienteAPI & p){
+    	return p.get_client()->get_socket();
     }
     virtual ~State();
 };

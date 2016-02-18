@@ -10,8 +10,10 @@
 
 #include <boost/array.hpp>
 #include <boost/asio.hpp>
+#include <boost/asio/io_service.hpp>
 
 using boost::asio::ip::udp;
+
 
 class UDPClient
 {
@@ -42,8 +44,8 @@ public:
 		return recv_buf;
 	}
 
-	udp::socket get_socket(){
-		return this->socket_;
+	int get_socket(){
+		return socket_.native();
 	}
 
 private:
