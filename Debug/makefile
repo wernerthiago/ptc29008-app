@@ -43,7 +43,7 @@ all: ptc29008-app
 ptc29008-app: $(OBJS) $(USER_OBJS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: GCC C++ Linker'
-	g++  -o "ptc29008-app" $(OBJS) $(USER_OBJS) $(LIBS)
+	g++ -Lboost_system -o "ptc29008-app" $(OBJS) $(USER_OBJS) $(LIBS)
 	@echo 'Finished building target: $@'
 	@echo ' '
 
