@@ -4,31 +4,28 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 CPP_SRCS += \
+../Address.cpp \
 ../Cliente.cpp \
 ../Evento.cpp \
+../Socket.cpp \
 ../main.cpp \
-../rcvUDP.cpp \
-../singleton_client.cpp \
-../singleton_server.cpp \
-../testUDP.cpp 
+../singleton_client.cpp 
 
 OBJS += \
+./Address.o \
 ./Cliente.o \
 ./Evento.o \
+./Socket.o \
 ./main.o \
-./rcvUDP.o \
-./singleton_client.o \
-./singleton_server.o \
-./testUDP.o 
+./singleton_client.o 
 
 CPP_DEPS += \
+./Address.d \
 ./Cliente.d \
 ./Evento.d \
+./Socket.d \
 ./main.d \
-./rcvUDP.d \
-./singleton_client.d \
-./singleton_server.d \
-./testUDP.d 
+./singleton_client.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes

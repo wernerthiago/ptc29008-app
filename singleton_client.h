@@ -15,9 +15,6 @@
 class State {
 public:
     virtual State * handle(Evento & ev) = 0;
-    int get_fd(ProtoClienteAPI & p){
-    	return p.get_client()->get_socket();
-    }
     virtual ~State();
 };
 

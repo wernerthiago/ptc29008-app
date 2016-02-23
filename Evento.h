@@ -42,8 +42,6 @@ enum Tipo {
 
 class Evento{
 public:
-
-protected:
 	Tipo tipo;
 };
 
