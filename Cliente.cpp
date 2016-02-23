@@ -6,11 +6,8 @@
  */
 
 #include "Cliente.h"
-#include "singleton.h"
-#include "Evento.h"
-#include <map>
-#include <vector>
-#include <string>
+#include "singleton_client.h"
+
 #define TIME 100
 
 using namespace std;
@@ -19,6 +16,7 @@ void ProtoClienteAPI::login(const string & nome, const string & senha){
 	this->jogador = nome;
 	EventoLoginReq ev(nome,senha);
 	this->handle(ev);
+	this->wait();
 }
 
 void ProtoClienteAPI::logout(){
@@ -37,15 +35,32 @@ void ProtoClienteAPI::lista_info(vector<Par> & lista){
 }
 
 void ProtoClienteAPI::leave(){
-	EventoLeaveReq ev();
+	EventoLeaveReq ev;
 	this->handle(ev);
 }
 
 void ProtoClienteAPI::wait(){
-	//Método criado para esperar a resposta do servidor
-	//Idealmente é necessário que exista um timeout.
+	int fd = this->socket.GetFD();
+
+	struct timeval timeout; // para especificar o timeout
+	timeout.tv_sec = 2; //timeout de 2 segundos
+	timeout.tv_usec = 0;
+
+	fd_set espera;
+	FD_ZERO(&espera);
+	FD_SET(fd, &espera);
+
+	if (select(fd+1, &espera, NULL, NULL, &timeout) == 0) { // timeout !!
+		EventoTimeout ev;
+		this->handle(ev);
+	} else {
+		std::string data = this->socket.Receive(this->address);
+	}
 }
 
-void ProtoClienteAPI::handle(Evento ev){
-	this->Request(ev);
+void ProtoClienteAPI::handle(Evento & ev){
+    State * novo = estado->handle(ev);
+    if (novo) {
+        estado = novo;
+    } else throw exception();
 }

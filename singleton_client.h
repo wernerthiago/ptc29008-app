@@ -5,37 +5,18 @@
  *      Author: werner
  */
 
-#ifndef SINGLETON_H_
-#define SINGLETON_H_
+#ifndef SINGLETON_CLIENT_H_
+#define SINGLETON_CLIENT_H_
 
 #include "Evento.h"
+#include "types.h"
+#include "Cliente.h"
 
 class State {
 public:
     virtual State * handle(Evento & ev) = 0;
     virtual ~State();
 };
-
-//class Context {
-//protected:
-//    State * estado;
-//public:
-//
-//    Context(State * inicio) : estado(inicio) {
-//    }
-//
-//    virtual ~Context() {
-//    }
-//
-//    void Request(Evento ev) {
-//        State * novo = estado->handle(ev);
-//
-//        if (novo) {
-//            estado = novo;
-//        } else throw exception();
-//    }
-//};
-
 
 class State1 : public State {
 public:
@@ -357,4 +338,4 @@ public:
 
 
 
-#endif /* SINGLETON_H_ */
+#endif /* SINGLETON_CLIENT_H_ */

@@ -1,7 +1,5 @@
-#include "iostream"
-#include "memory"
-#include "vector"
-#include "singleton.h"
+#include "singleton_client.h"
+#include <memory>
 
 using namespace std;
 
@@ -17,40 +15,32 @@ State9 * State9::single = NULL;
 State10 * State10::single = NULL;
 
 State * State1::handle(Evento & e) {
-    cout << "1 -" << e << "-> ";
     State * s;
-    switch (e) {
+    std::string data;
+    ProtoClienteAPI p = p.getInstance();
+    switch (e.tipo) {
         case login_req:
             s = State2::get_instance();
-            cout << "2" << endl;
-            break;
-//        case login_resp:
-//            s = State3::get_instance();
-//            cout << "3" << endl;
-//            break;
-        case timeout:
-            e = login_req;
-            s = State2::get_instance();
-            cout << "2" << endl;
+            data = "login_req";
+            p.getSocket().Send(p.getAddress(),data);
             break;
         default:
             s = State1::get_instance();
-            cout << "1" << endl;
             break;
     }
     return s;
 }
 
 State * State2::handle(Evento & e) {
-    cout << "2 -" << e << "-> ";
+//    cout << "2 -" << e << "-> ";
     State * s;
-    switch (e) {
+    switch (e.tipo) {
         case login_resp:
             s = State3::get_instance(); //MUDADO 1 P/ 3
             cout << "3" << endl;        //MUDADE 1 P/ 3
             break;
         default:
-            e = timeout;
+            e.tipo = timeout;
             s = State1::get_instance();
             cout << "1" << endl;
             break;
@@ -59,36 +49,24 @@ State * State2::handle(Evento & e) {
 }
 
 State * State3::handle(Evento& e) {
-    cout << "3 -" << e << "-> ";
+//    cout << "3 -" << e << "-> ";
     State * s;
-    switch (e) {
+    switch (e.tipo) {
         case logout_req:
             s = State4::get_instance();
-            cout << "4" << endl;
+//            cout << "4" << endl;
             break;
-//        case logout_resp:
-//            s = State1::get_instance();
-//            cout << "1" << endl;
-//            break;
         case list_req:
             s = State5::get_instance();
-            cout << "5" << endl;
+//            cout << "5" << endl;
             break;
-//        case list_resp:
-//            s = State3::get_instance();
-//            cout << "3" << endl;
-//            break;
         case join_req:
             s = State6::get_instance();
-            cout << "6" << endl;
+//            cout << "6" << endl;
             break;
-//        case join_resp:
-//            s = State7::get_instance();
-//            cout << "7" << endl;
-//            break;
         case timeout:
             s = State3::get_instance();
-            cout << "3" << endl;
+//            cout << "3" << endl;
             //VER LÓGICA DO TIMEOUT (SUGESTÃO: FAZER VÁRIOS ESTADOS DE TIMEOUT)
             break;
         default:
@@ -99,32 +77,31 @@ State * State3::handle(Evento& e) {
 }
 
 State * State4::handle(Evento& e) { //LOGOUT_WAIT1;
-    cout << "4 -" << e << "-> ";
+//    cout << "4 -" << e << "-> ";
     State * s;
-    switch (e) {
+    switch (e.tipo) {
         case logout_resp:
             s = State1::get_instance();
-            cout << "1" << endl;
+//            cout << "1" << endl;
             break;
         default:
-            e = timeout;
+            e.tipo = timeout;
             s = State3::get_instance();
-            cout << "3" << endl;
+//            cout << "3" << endl;
             break;
     }
     return s;
 }
 
 State * State5::handle(Evento& e) { //LIST_WAIT
-    cout << "5 -" << e << "-> ";
     State * s;
-    switch (e) {
+    switch (e.tipo) {
         case list_resp:
             s = State3::get_instance();
             cout << "3" << endl;
             break;
         default:
-            e = timeout;
+            e.tipo = timeout;
             s = State3::get_instance();
             cout << "3" << endl;
             break;
@@ -133,15 +110,14 @@ State * State5::handle(Evento& e) { //LIST_WAIT
 }
 
 State * State6::handle(Evento& e) { //JOIN_WAIT
-    cout << "6 -" << e << "-> ";
     State * s;
-    switch (e) {
+    switch (e.tipo) {
         case join_resp:
             s = State7::get_instance();
             cout << "7" << endl;
             break;
         default:
-            e = timeout;
+            e.tipo = timeout;
             s = State3::get_instance();
             cout << "3" << endl;
             break;
@@ -150,33 +126,20 @@ State * State6::handle(Evento& e) { //JOIN_WAIT
 }
 
 State * State7::handle(Evento& e) { //ESTADO DE JOGO
-    cout << "7 -" << e << "-> ";
     State * s;
-    switch (e) {
+    switch (e.tipo) {
         case logout_req:
             s = State10::get_instance();
             cout << "10" << endl;
             break;
-//        case logout_resp:
-//            s = State1::get_instance();
-//            cout << "1" << endl;
-//            break;
         case leave_req:
             s = State8::get_instance();
             cout << "8" << endl;
             break;
-//        case leave_resp:
-//            s = State3::get_instance();
-//            cout << "3" << endl;
-//            break;
         case setmode_req:
             s = State9::get_instance();
             cout << "9" << endl;
             break;
-//        case setmode_resp:
-//            s = State7::get_instance();
-//            cout << "7" << endl;
-//            break;
         case timeout:
             s = State7::get_instance();
             cout << "7" << endl;
@@ -187,15 +150,14 @@ State * State7::handle(Evento& e) { //ESTADO DE JOGO
 }
 
 State * State8::handle(Evento& e) { //LEAVE_WAIT
-    cout << "8 -" << e << "-> ";
     State * s;
-    switch (e) {
+    switch (e.tipo) {
         case leave_resp:
             s = State3::get_instance();
             cout << "3" << endl;
             break;
         default:
-            e = timeout;
+            e.tipo = timeout;
             s = State7::get_instance();
             cout << "7" << endl;
     }
@@ -203,15 +165,14 @@ State * State8::handle(Evento& e) { //LEAVE_WAIT
 }
 
 State * State9::handle(Evento& e) { //SETMODE_WAIT
-    cout << "9 -" << e << "-> ";
     State * s;
-    switch (e) {
+    switch (e.tipo) {
         case setmode_resp:
             s = State7::get_instance();
             cout << "7" << endl;
             break;
         default:
-            e = timeout;
+            e.tipo = timeout;
             s = State7::get_instance();
             cout << "7" << endl;
     }
@@ -220,14 +181,13 @@ State * State9::handle(Evento& e) { //SETMODE_WAIT
 
 State * State10::handle(Evento& e) { //LOGOUT_WAIT;
     State * s;
-    cout << "10 -" << e << "-> ";
-    switch (e) {
+    switch (e.tipo) {
         case logout_resp:
             s = State1::get_instance();
             cout << "1" << endl;
             break;
         default:
-            e = timeout;
+            e.tipo = timeout;
             s = State7::get_instance();
             cout << "7" << endl;
             break;
